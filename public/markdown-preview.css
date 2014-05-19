@@ -1,0 +1,395 @@
+.markdown-preview {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  background-color: #fff;
+  overflow: scroll;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.markdown-preview :not(.editor-colors) > code {
+  color: #333;
+}
+.markdown-spinner {
+  margin: auto;
+  background-image: url(images/octocat-spinner-128.gif);
+  background-repeat: no-repeat;
+  background-size: 64px;
+  background-position: top center;
+  padding-top: 70px;
+  text-align: center;
+}
+.markdown-preview pre,
+.markdown-preview pre div.editor,
+.markdown-preview code,
+.markdown-preview tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+.markdown-preview a {
+  color: #4183c4;
+}
+.markdown-preview ol > li {
+  list-style-type: decimal;
+}
+.markdown-preview ul > li {
+  list-style-type: disc;
+}
+.markdown-preview > *:first-child {
+  margin-top: 0 !important;
+}
+.markdown-preview > *:last-child {
+  margin-bottom: 0 !important;
+}
+.markdown-preview a.absent {
+  color: #c00;
+}
+.markdown-preview a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3,
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  margin: 20px 0 10px;
+  padding: 0 0 10px 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative;
+}
+.markdown-preview h1 .octicon-link,
+.markdown-preview h2 .octicon-link,
+.markdown-preview h3 .octicon-link,
+.markdown-preview h4 .octicon-link,
+.markdown-preview h5 .octicon-link,
+.markdown-preview h6 .octicon-link {
+  display: none;
+  color: #000;
+}
+.markdown-preview h1:hover a.anchor,
+.markdown-preview h2:hover a.anchor,
+.markdown-preview h3:hover a.anchor,
+.markdown-preview h4:hover a.anchor,
+.markdown-preview h5:hover a.anchor,
+.markdown-preview h6:hover a.anchor {
+  text-decoration: none;
+  line-height: 1;
+  padding-left: 0;
+  margin-left: -22px;
+  top: 15%;
+}
+.markdown-preview h1:hover a.anchor .octicon-link,
+.markdown-preview h2:hover a.anchor .octicon-link,
+.markdown-preview h3:hover a.anchor .octicon-link,
+.markdown-preview h4:hover a.anchor .octicon-link,
+.markdown-preview h5:hover a.anchor .octicon-link,
+.markdown-preview h6:hover a.anchor .octicon-link {
+  display: inline-block;
+}
+.markdown-preview h1 tt,
+.markdown-preview h2 tt,
+.markdown-preview h3 tt,
+.markdown-preview h4 tt,
+.markdown-preview h5 tt,
+.markdown-preview h6 tt,
+.markdown-preview h1 code,
+.markdown-preview h2 code,
+.markdown-preview h3 code,
+.markdown-preview h4 code,
+.markdown-preview h5 code,
+.markdown-preview h6 code {
+  font-size: inherit;
+}
+.markdown-preview h1 {
+  font-size: 28px;
+  color: #000;
+}
+.markdown-preview h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+.markdown-preview h3 {
+  font-size: 18px;
+}
+.markdown-preview h4 {
+  font-size: 16px;
+}
+.markdown-preview h5 {
+  font-size: 14px;
+}
+.markdown-preview h6 {
+  color: #777;
+  font-size: 14px;
+}
+.markdown-preview p,
+.markdown-preview blockquote,
+.markdown-preview ul,
+.markdown-preview ol,
+.markdown-preview dl,
+.markdown-preview table,
+.markdown-preview pre {
+  margin: 15px 0;
+}
+.markdown-preview hr {
+  background: transparent url("atom://markdown-preview/assets/hr.png") repeat-x 0 0;
+  border: 0 none;
+  color: #ccc;
+  height: 4px;
+  padding: 0;
+  margin: 15px 0;
+}
+.markdown-preview > h2:first-child,
+.markdown-preview > h1:first-child,
+.markdown-preview > h1:first-child + h2,
+.markdown-preview > h3:first-child,
+.markdown-preview > h4:first-child,
+.markdown-preview > h5:first-child,
+.markdown-preview > h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+.markdown-preview a:first-child h1,
+.markdown-preview a:first-child h2,
+.markdown-preview a:first-child h3,
+.markdown-preview a:first-child h4,
+.markdown-preview a:first-child h5,
+.markdown-preview a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+.markdown-preview h1 + p,
+.markdown-preview h2 + p,
+.markdown-preview h3 + p,
+.markdown-preview h4 + p,
+.markdown-preview h5 + p,
+.markdown-preview h6 + p {
+  margin-top: 0;
+}
+.markdown-preview li p.first {
+  display: inline-block;
+}
+.markdown-preview ul,
+.markdown-preview ol {
+  padding-left: 30px;
+}
+.markdown-preview ul.no-list,
+.markdown-preview ol.no-list {
+  list-style-type: none;
+  padding: 0;
+}
+.markdown-preview ul li > :first-child,
+.markdown-preview ol li > :first-child,
+.markdown-preview ul li ul:first-of-type,
+.markdown-preview ol li ul:first-of-type {
+  margin-top: 0;
+}
+.markdown-preview ul ul,
+.markdown-preview ul ol,
+.markdown-preview ol ol,
+.markdown-preview ol ul {
+  margin-bottom: 0;
+}
+.markdown-preview dl {
+  padding: 0;
+}
+.markdown-preview dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+.markdown-preview dl dt:first-child {
+  padding: 0;
+}
+.markdown-preview dl dt > :first-child {
+  margin-top: 0;
+}
+.markdown-preview dl dt > :last-child {
+  margin-bottom: 0;
+}
+.markdown-preview dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+.markdown-preview dl dd > :first-child {
+  margin-top: 0;
+}
+.markdown-preview dl dd > :last-child {
+  margin-bottom: 0;
+}
+.markdown-preview blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+.markdown-preview blockquote > :first-child {
+  margin-top: 0;
+}
+.markdown-preview blockquote > :last-child {
+  margin-bottom: 0;
+}
+.markdown-preview blockquote p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.markdown-preview table th {
+  font-weight: bold;
+}
+.markdown-preview table th,
+.markdown-preview table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+.markdown-preview table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+.markdown-preview table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+.markdown-preview img {
+  max-width: 100%;
+}
+.markdown-preview span.frame {
+  display: block;
+  overflow: hidden;
+}
+.markdown-preview span.frame > span {
+  border: 1px solid #ddd;
+  display: block;
+  float: left;
+  overflow: hidden;
+  margin: 13px 0 0;
+  padding: 7px;
+  width: auto;
+}
+.markdown-preview span.frame span img {
+  display: block;
+  float: left;
+}
+.markdown-preview span.frame span span {
+  clear: both;
+  color: #333;
+  display: block;
+  padding: 5px 0 0;
+}
+.markdown-preview span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+.markdown-preview span.align-center > span {
+  display: block;
+  overflow: hidden;
+  margin: 13px auto 0;
+  text-align: center;
+}
+.markdown-preview span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+.markdown-preview span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+.markdown-preview span.align-right > span {
+  display: block;
+  overflow: hidden;
+  margin: 13px 0 0;
+  text-align: right;
+}
+.markdown-preview span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+.markdown-preview span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left;
+}
+.markdown-preview span.float-left span {
+  margin: 13px 0 0;
+}
+.markdown-preview span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right;
+}
+.markdown-preview span.float-right > span {
+  display: block;
+  overflow: hidden;
+  margin: 13px auto 0;
+  text-align: right;
+}
+.markdown-preview code,
+.markdown-preview tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+  text-shadow: none;
+}
+.markdown-preview code {
+  white-space: nowrap;
+}
+.markdown-preview pre > code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+  word-wrap: normal;
+}
+.markdown-preview pre {
+  background: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+.markdown-preview pre.editor-colors {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+}
+.markdown-preview pre code,
+.markdown-preview pre tt {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+.markdown-preview kbd {
+  background-color: #dddddd;
+  background-image: linear-gradient(#f1f1f1, #dddddd);
+  background-repeat: repeat-x;
+  border-radius: 2px;
+  border: 1px solid #ddd;
+  border-bottom-color: #ccc;
+  border-right-color: #ccc;
+  padding: 1px 4px;
+  line-height: 10px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.markdown-preview .emoji {
+  height: 20px;
+  width: 20px;
+}
