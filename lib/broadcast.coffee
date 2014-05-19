@@ -1,4 +1,5 @@
 server = null
+sockets = []
 
 module.exports =
   activate: ->
@@ -16,9 +17,16 @@ module.exports =
       res.end text
     server.listen 8000, '127.0.0.1'
 
+    server.addListener 'connection', (socket) =>
+      sockets.push socket
+
     console.log('Broadcst started.')
 
   stop: ->
+    if sockets.length > 0
+      for socket in sockets
+        socket.destroy()
+
     if server isnt null
       server.close()
       server = null
