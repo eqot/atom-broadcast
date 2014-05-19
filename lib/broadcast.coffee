@@ -1,4 +1,5 @@
 path = require 'path'
+fs = require 'fs'
 nodeStatic = require 'node-static'
 
 server = null
@@ -27,12 +28,18 @@ module.exports =
     filePath = path.join __dirname, '..', './public'
     fileServer = new nodeStatic.Server filePath
 
+    template = fs.readFileSync path.join(filePath, 'template.html'), {encoding: 'utf8'}
+    text = template.replace '{CONTENT}', text
+
+    type = 'text/html'
+
     http = require 'http'
     server = http.createServer (req, res) =>
-      # res.writeHead 200, {'Content-Type': type}
-      # res.end text
       req.addListener 'end', =>
-        fileServer.serve req, res
+        fileServer.serve req, res, (err) =>
+          if err?
+            res.writeHead 200, {'Content-Type': type}
+            res.end text
       .resume()
     .listen 8000, '127.0.0.1'
 
