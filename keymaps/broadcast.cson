@@ -8,4 +8,5 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
 '.workspace':
-  'ctrl-alt-o': 'broadcast:toggle'
+  'ctrl-alt-b': 'broadcast:start'
+  'ctrl-alt-shift-b': 'broadcast:stop'
