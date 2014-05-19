@@ -1,3 +1,6 @@
+path = require 'path'
+nodeStatic = require 'node-static'
+
 server = null
 sockets = []
 
@@ -21,11 +24,17 @@ module.exports =
       text = editor.getText?()
       type = 'text/plain'
 
+    filePath = path.join __dirname, '..', './public'
+    fileServer = new nodeStatic.Server filePath
+
     http = require 'http'
     server = http.createServer (req, res) =>
-      res.writeHead 200, {'Content-Type': type}
-      res.end text
-    server.listen 8000, '127.0.0.1'
+      # res.writeHead 200, {'Content-Type': type}
+      # res.end text
+      req.addListener 'end', =>
+        fileServer.serve req, res
+      .resume()
+    .listen 8000, '127.0.0.1'
 
     server.addListener 'connection', (socket) =>
       sockets.push socket

@@ -3,12 +3,16 @@
   "main": "./lib/broadcast",
   "version": "0.0.0",
   "description": "A short description of your package",
-  "activationEvents": ["broadcast:start", "broadcast:stop"],
+  "activationEvents": [
+    "broadcast:start",
+    "broadcast:stop"
+  ],
   "repository": "https://github.com/atom/broadcast",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
   },
   "dependencies": {
+    "node-static": "^0.7.3"
   }
 }
