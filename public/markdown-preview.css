@@ -1,3 +1,230 @@
+.editor-colors {
+  background-color: #1d1f21;
+  color: #c5c8c6;
+}
+.editor {
+  background-color: #1d1f21;
+  color: #c5c8c6;
+}
+.editor .wrap-guide {
+  background-color: #282a2e;
+}
+.editor .indent-guide {
+  color: #373b41;
+}
+.editor .invisible-character {
+  color: #373b41;
+}
+.editor .gutter {
+  background-color: #282a2e;
+  color: #c5c8c6;
+}
+.editor .gutter .line-number.cursor-line {
+  background-color: #373b41;
+  color: #c5c8c6;
+}
+.editor .gutter .line-number.cursor-line-no-selection {
+  color: #c5c8c6;
+}
+.editor .gutter .line-number.folded,
+.editor .gutter .line-number:after,
+.editor .fold-marker:after {
+  color: #969896;
+}
+.editor .invisible {
+  color: #c5c8c6;
+}
+.editor .cursor {
+  color: #ffffff;
+}
+.editor .selection .region {
+  background-color: #404349;
+}
+.editor .search-results .marker .region {
+  background-color: transparent;
+  border: 1px solid #969896;
+}
+.editor .search-results .marker.current-result .region {
+  border: 1px solid #ffffff;
+}
+.comment {
+  color: #969896;
+}
+.entity.name.type {
+  color: #f0c674;
+  text-decoration: underline;
+}
+.entity.other.inherited-class {
+  color: #b5bd68;
+}
+.keyword {
+  color: #b294bb;
+}
+.keyword.control {
+  color: #b294bb;
+}
+.keyword.operator {
+  color: #c5c8c6;
+}
+.keyword.other.special-method {
+  color: #81a2be;
+}
+.keyword.other.unit {
+  color: #de935f;
+}
+.storage {
+  color: #b294bb;
+}
+.constant {
+  color: #de935f;
+}
+.constant.character.escape {
+  color: #8abeb7;
+}
+.constant.numeric {
+  color: #de935f;
+}
+.constant.other.color {
+  color: #8abeb7;
+}
+.constant.other.symbol {
+  color: #b5bd68;
+}
+.variable {
+  color: #cc6666;
+}
+.variable.interpolation {
+  color: #bf4040;
+}
+.variable.parameter.function {
+  color: #c5c8c6;
+}
+.invalid.illegal {
+  background-color: #cc6666;
+  color: #1d1f21;
+}
+.string {
+  color: #b5bd68;
+}
+.string.regexp {
+  color: #8abeb7;
+}
+.string.regexp .source.ruby.embedded {
+  color: #de935f;
+}
+.string.other.link {
+  color: #cc6666;
+}
+.punctuation.definition.comment {
+  color: #969896;
+}
+.punctuation.definition.string,
+.punctuation.definition.variable,
+.punctuation.definition.parameters,
+.punctuation.definition.array {
+  color: #c5c8c6;
+}
+.punctuation.definition.heading,
+.punctuation.definition.identity {
+  color: #81a2be;
+}
+.punctuation.definition.bold {
+  color: #f0c674;
+  font-style: bold;
+}
+.punctuation.definition.italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.punctuation.section.embedded {
+  color: #bf4040;
+}
+.support.class {
+  color: #f0c674;
+}
+.support.function {
+  color: #8abeb7;
+}
+.support.function.any-method {
+  color: #81a2be;
+}
+.entity.name.function {
+  color: #81a2be;
+}
+.entity.name.class,
+.entity.name.type.class {
+  color: #f0c674;
+}
+.entity.name.section {
+  color: #81a2be;
+}
+.entity.name.tag {
+  color: #cc6666;
+  text-decoration: underline;
+}
+.entity.other.attribute-name {
+  color: #de935f;
+}
+.entity.other.attribute-name.id {
+  color: #81a2be;
+}
+.meta.class {
+  color: #f0c674;
+}
+.meta.link {
+  color: #de935f;
+}
+.meta.require {
+  color: #81a2be;
+}
+.meta.selector {
+  color: #b294bb;
+}
+.meta.separator {
+  background-color: #373b41;
+  color: #c5c8c6;
+}
+.none {
+  color: #c5c8c6;
+}
+.markup.bold {
+  color: #de935f;
+  font-style: bold;
+}
+.markup.changed {
+  color: #b294bb;
+}
+.markup.deleted {
+  color: #cc6666;
+}
+.markup.italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.markup.heading .punctuation.definition.heading {
+  color: #81a2be;
+}
+.markup.inserted {
+  color: #b5bd68;
+}
+.markup.list {
+  color: #cc6666;
+}
+.markup.quote {
+  color: #de935f;
+}
+.markup.raw.inline {
+  color: #b5bd68;
+}
+.source.gfm .markup {
+  -webkit-font-smoothing: auto;
+}
+.source.gfm .markup.heading {
+  color: #b5bd68;
+}
+.editor.mini .scroll-view {
+  padding-left: 1px;
+}
 .markdown-preview {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
@@ -367,8 +594,8 @@
   border-radius: 3px;
 }
 .markdown-preview pre.editor-colors {
-  background: #ffffff;
-  border: 1px solid #e6e6e6;
+  background: #1d1f21;
+  border: 1px solid #050606;
 }
 .markdown-preview pre code,
 .markdown-preview pre tt {
