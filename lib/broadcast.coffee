@@ -16,8 +16,6 @@ module.exports =
       return
 
     editor = atom.workspace.activePaneItem
-    console.log(editor)
-
     if editor[0]?
       text = editor[0].outerHTML
       type = 'text/html'
@@ -46,7 +44,7 @@ module.exports =
     server.addListener 'connection', (socket) =>
       sockets.push socket
 
-    console.log('Broadcast started.')
+    console.log 'Broadcast started.'
 
   stop: ->
     if server is null
@@ -61,4 +59,4 @@ module.exports =
       server.close()
       server = null
 
-    console.log('Broadcast stopped.')
+    console.log 'Broadcast stopped.'
