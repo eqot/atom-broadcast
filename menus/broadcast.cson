@@ -1,0 +1,16 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  '.overlayer':
+      'Enable broadcast': 'broadcast:toggle'
+
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'broadcast'
+      'submenu': [
+        { 'label': 'Toggle', 'command': 'broadcast:toggle' }
+      ]
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "name": "broadcast",
+  "main": "./lib/broadcast",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "activationEvents": ["broadcast:toggle"],
+  "repository": "https://github.com/atom/broadcast",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  }
+}
