@@ -13,11 +13,17 @@ module.exports =
 
     editor = atom.workspace.activePaneItem
     console.log(editor)
-    text = editor.getText()
+
+    if editor[0]?
+      text = editor[0].outerHTML
+      type = 'text/html'
+    else
+      text = editor.getText?()
+      type = 'text/plain'
 
     http = require 'http'
     server = http.createServer (req, res) =>
-      res.writeHead 200, {'Content-Type': 'text/plain'}
+      res.writeHead 200, {'Content-Type': type}
       res.end text
     server.listen 8000, '127.0.0.1'
 
