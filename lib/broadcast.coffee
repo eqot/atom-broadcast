@@ -7,6 +7,10 @@ module.exports =
     atom.workspaceView.command "broadcast:stop", => @stop()
 
   start: ->
+    if server isnt null
+      console.error 'Broadcast has already started'
+      return
+
     editor = atom.workspace.activePaneItem
     console.log(editor)
     text = editor.getText()
@@ -23,6 +27,10 @@ module.exports =
     console.log('Broadcst started.')
 
   stop: ->
+    if server is null
+      console.error 'Broadcast has not started'
+      return
+
     if sockets.length > 0
       for socket in sockets
         socket.destroy()
