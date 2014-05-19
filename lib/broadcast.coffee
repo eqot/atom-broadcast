@@ -24,7 +24,7 @@ module.exports =
     server.addListener 'connection', (socket) =>
       sockets.push socket
 
-    console.log('Broadcst started.')
+    console.log('Broadcast started.')
 
   stop: ->
     if server is null
@@ -39,4 +39,4 @@ module.exports =
       server.close()
       server = null
 
-    console.log('Broadcst stopped.')
+    console.log('Broadcast stopped.')
