@@ -13,6 +13,7 @@
     "atom": ">0.50.0"
   },
   "dependencies": {
+    "emoji-images": "^0.1.1",
     "node-static": "^0.7.3"
   }
 }
