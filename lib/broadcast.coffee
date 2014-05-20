@@ -15,7 +15,7 @@ module.exports =
       console.error 'Broadcast has already started'
       return
 
-    filePath = path.join __dirname, '..', './public'
+    filePath = path.join __dirname, '..'
     template = fs.readFileSync path.join(filePath, 'template.html'), {encoding: 'utf8'}
 
     editor = atom.workspace.activePaneItem
@@ -25,11 +25,14 @@ module.exports =
       content = '<pre>' + editor.getText?() + '</pre>'
     template = template.replace '{CONTENT}', content
 
+    template = template.replace /[\w-\.\/]+node_modules\/roaster/g, ''
+
     fileServer = new nodeStatic.Server filePath
 
     http = require 'http'
     server = http.createServer (req, res) =>
       req.addListener 'end', =>
+        req.url = decodeURIComponent(req.url)
         fileServer.serve req, res, (err) =>
           if err?
             res.writeHead 200, {'Content-Type': 'text/html'}
