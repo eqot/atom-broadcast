@@ -12,3 +12,11 @@ This is a sample content for broadcasting markdown preview content to browsers.
 ```
 
 :+1: :heart:
+
+- [ ] Figure out wormholes
+  - [ ] Call @arfon
+  - [ ] Research ([docs](http://en.wikipedia.org/wiki/Wormhole#Time_travel))
+  - [ ] Build prototype #15
+  - [ ] Test run #43 @world-domination/time-travel
+- [x] ...?
+- [ ] Profit!
