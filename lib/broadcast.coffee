@@ -11,9 +11,9 @@ module.exports =
     atom.workspaceView.command "broadcast:stop", => @stop()
 
   start: ->
-    if server isnt null
-      console.error 'Broadcast has already started'
-      return
+    # If server has already started, then it should stop first
+    if server?
+      @stop()
 
     filePath = path.join __dirname, '..'
     template = fs.readFileSync path.join(filePath, 'template.html'), {encoding: 'utf8'}
@@ -54,8 +54,7 @@ module.exports =
       for socket in sockets
         socket.destroy()
 
-    if server isnt null
-      server.close()
-      server = null
+    server?.close()
+    server = null
 
     console.log 'Broadcast stopped.'
