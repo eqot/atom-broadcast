@@ -6,6 +6,10 @@ server = null
 sockets = []
 
 module.exports =
+  configDefaults:
+    hostname: 'localhost'
+    port: 8000
+
   activate: ->
     atom.workspaceView.command "broadcast:start", => @start()
     atom.workspaceView.command "broadcast:stop", => @stop()
@@ -29,6 +33,9 @@ module.exports =
 
     fileServer = new nodeStatic.Server filePath
 
+    hostname = atom.config.get('broadcast.hostname') or 'localhost'
+    port = atom.config.get('broadcast.port') or 8000
+
     http = require 'http'
     server = http.createServer (req, res) =>
       req.addListener 'end', =>
@@ -38,12 +45,12 @@ module.exports =
             res.writeHead 200, {'Content-Type': 'text/html'}
             res.end template
       .resume()
-    .listen 8000, '127.0.0.1'
+    .listen port, hostname
 
     server.addListener 'connection', (socket) =>
       sockets.push socket
 
-    console.log 'Broadcast started.'
+    console.log "Broadcast started at http://#{hostname}:#{port}"
 
   stop: ->
     if server is null
