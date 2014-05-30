@@ -9,6 +9,9 @@ module.exports =
   configDefaults:
     hostname: 'localhost'
     port: 8000
+    getEmojisFromCheatSheetSite: false
+
+  urlToCheatSheetSite: 'https://raw.githubusercontent.com/arvida/emoji-cheat-sheet.com/master/public/graphics/emojis'
 
   activate: ->
     atom.workspaceView.command "broadcast:start", => @start()
@@ -25,11 +28,13 @@ module.exports =
     editor = atom.workspace.activePaneItem
     if editor[0]?
       content = editor[0].outerHTML
+      if atom.config.get 'broadcast.getEmojisFromCheatSheetSite'
+        content = content.replace /[\w-\.\/]+pngs/g, @urlToCheatSheetSite
+      else
+        content = content.replace /[\w-\.\/]+node_modules\/roaster/g, ''
     else
       content = '<pre>' + editor.getText?() + '</pre>'
     template = template.replace '{CONTENT}', content
-
-    template = template.replace /[\w-\.\/]+node_modules\/roaster/g, ''
 
     fileServer = new nodeStatic.Server filePath
 
