@@ -10,7 +10,7 @@ describe "Broadcast", ->
   activationPromise = null
 
   beforeEach ->
-    atom.workspaceView = new WorkspaceView
+    atom.workspaceView = new WorkspaceView()
     activationPromise = atom.packages.activatePackage('broadcast')
 
   describe "when the broadcast:toggle event is triggered", ->
