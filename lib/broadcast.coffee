@@ -8,5 +8,5 @@ module.exports =
     automaticallyOpenInBrowser: true
 
   activate: ->
-    atom.workspaceView.command "broadcast:start", => BroadcastServer.start()
-    atom.workspaceView.command "broadcast:stop", => BroadcastServer.stop()
+    atom.workspaceView.command 'broadcast:start', => BroadcastServer.start()
+    atom.workspaceView.command 'broadcast:stop', => BroadcastServer.stop()
