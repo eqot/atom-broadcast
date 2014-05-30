@@ -11,14 +11,19 @@ class BroadcastServer
   urlToCheatSheetSite: 'https://raw.githubusercontent.com/arvida/emoji-cheat-sheet.com/master/public/graphics/emojis'
 
   @start: ->
-    # If server has already started, then it should stop first
     isRestart = server?
     if isRestart
       @stop()
 
-    filePath = path.join __dirname, '..'
-    template = fs.readFileSync path.join(filePath, 'template.html'), {encoding: 'utf8'}
+    content = @getContent()
+    url = @startServer content
 
+    if !isRestart and atom.config.get 'broadcast.automaticallyOpenInBrowser'
+      @openUrlInBrowser url
+
+    console.log "Broadcast started at #{url}"
+
+  @getContent: ->
     editor = atom.workspace.activePaneItem
     if editor[0]?
       content = editor[0].outerHTML
@@ -28,12 +33,18 @@ class BroadcastServer
         content = content.replace /[\w-\.\/]+node_modules\/roaster/g, ''
     else
       content = '<pre>' + editor.getText?() + '</pre>'
-    template = template.replace '{CONTENT}', content
 
-    fileServer = new nodeStatic.Server filePath
+    filePath = path.join __dirname, '..'
+    template = fs.readFileSync path.join(filePath, 'template.html'), {encoding: 'utf8'}
+    content = template.replace '{CONTENT}', content
 
+  @startServer: (content) ->
     hostname = atom.config.get('broadcast.hostname') or 'localhost'
     port = atom.config.get('broadcast.port') or 8000
+    url = "http://#{hostname}:#{port}"
+
+    filePath = path.join __dirname, '..'
+    fileServer = new nodeStatic.Server filePath
 
     http = require 'http'
     server = http.createServer (req, res) =>
@@ -42,18 +53,14 @@ class BroadcastServer
         fileServer.serve req, res, (err) =>
           if err?
             res.writeHead 200, {'Content-Type': 'text/html'}
-            res.end template
+            res.end content
       .resume()
     .listen port, hostname
 
     server.addListener 'connection', (socket) =>
       sockets.push socket
 
-    url = "http://#{hostname}:#{port}"
-    if !isRestart and atom.config.get 'broadcast.automaticallyOpenInBrowser'
-      @openUrlInBrowser url
-
-    console.log "Broadcast started at #{url}"
+    return url
 
   @stop: ->
     if server is null
