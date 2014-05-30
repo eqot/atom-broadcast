@@ -15,5 +15,13 @@
   "dependencies": {
     "emoji-images": "^0.1.1",
     "node-static": "^0.7.3"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-apm": "0.0.1",
+    "grunt-coffee-jshint": "^0.2.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^0.4.0",
+    "time-grunt": "^0.3.1"
   }
 }
