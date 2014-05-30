@@ -1,6 +1,7 @@
 path = require 'path'
 fs = require 'fs'
 nodeStatic = require 'node-static'
+Shell = require 'shell'
 
 server = null
 sockets = []
@@ -11,7 +12,8 @@ class BroadcastServer
 
   @start: ->
     # If server has already started, then it should stop first
-    if server?
+    isRestart = server?
+    if isRestart
       @stop()
 
     filePath = path.join __dirname, '..'
@@ -47,7 +49,11 @@ class BroadcastServer
     server.addListener 'connection', (socket) =>
       sockets.push socket
 
-    console.log "Broadcast started at http://#{hostname}:#{port}"
+    url = "http://#{hostname}:#{port}"
+    if !isRestart and atom.config.get 'broadcast.automaticallyOpenInBrowser'
+      @openUrlInBrowser url
+
+    console.log "Broadcast started at #{url}"
 
   @stop: ->
     if server is null
@@ -62,3 +68,6 @@ class BroadcastServer
     server = null
 
     console.log 'Broadcast stopped.'
+
+  @openUrlInBrowser: (url) ->
+    Shell.openExternal url

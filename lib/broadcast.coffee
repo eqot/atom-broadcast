@@ -5,6 +5,7 @@ module.exports =
     hostname: 'localhost'
     port: 8000
     getEmojisFromCheatSheetSite: false
+    automaticallyOpenInBrowser: true
 
   activate: ->
     atom.workspaceView.command "broadcast:start", => BroadcastServer.start()
