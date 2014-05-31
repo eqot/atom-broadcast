@@ -11,7 +11,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    var socket = io('http://localhost');
+    var socket = io('/');
     socket.on('update', function (data) {
       document.body.innerHTML = data;
     });

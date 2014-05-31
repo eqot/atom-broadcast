@@ -11,7 +11,7 @@ class BroadcastServer
   editor: null
   server: null
   sockets: []
-  ioSocket: null
+  io: null
 
   start: ->
     isRestart = @server?
@@ -28,7 +28,7 @@ class BroadcastServer
     @startSocketIOServer()
 
     if !isRestart and atom.config.get 'broadcast.automaticallyOpenInBrowser'
-      @openUrlInBrowser url + '/index.html'
+      @openUrlInBrowser url
 
     console.log "Broadcast started at #{url}"
 
@@ -50,7 +50,7 @@ class BroadcastServer
             console.log req.url
             console.log err
       .resume()
-    .listen port, hostname
+    .listen port, '0.0.0.0'
 
     @server.addListener 'connection', (socket) =>
       @sockets.push socket
@@ -58,17 +58,20 @@ class BroadcastServer
   startSocketIOServer: ->
     return unless @server?
 
-    io = socketIo @server
+    @io = socketIo @server
 
-    io.on 'connection', (socket) =>
-      @ioSocket = socket
-      @updateContent()
+    @io.on 'connection', (socket) =>
+      @updateContent socket
 
   stop: ->
     if !@server?
       console.error 'Broadcast has not started'
       return
 
+    @stopSocketIOServer()
+    @stopServer()
+
+  stopServer: ->
     if @sockets.length > 0
       for socket in @sockets
         socket.destroy()
@@ -78,11 +81,18 @@ class BroadcastServer
 
     console.log 'Broadcast stopped.'
 
-  updateContent: ->
-    return unless @ioSocket?
+  stopSocketIOServer: ->
+    return unless @io?
 
+    @io = null
+
+  updateContent: (socket) ->
     content = @getContent()
-    @ioSocket.emit 'update', content
+
+    if socket?
+      socket.emit 'update', content
+    else
+      @io.emit 'update', content
 
   getContent: ->
     if @editor[0]?
