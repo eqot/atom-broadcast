@@ -42,13 +42,17 @@ class BroadcastServer
     filePath = path.join __dirname, '../public'
     fileServer = new nodeStatic.Server filePath
 
+    moduleServer = new nodeStatic.Server '../node_modules/'
+
     @server = http.createServer (req, res) =>
       req.addListener 'end', =>
         req.url = decodeURIComponent(req.url)
         fileServer.serve req, res, (err) =>
           if err?
-            console.log req.url
-            console.log err
+            moduleServer.serve req, res, (err2) =>
+              if err2?
+                console.log req.url
+                console.log err2
       .resume()
     .listen port, '0.0.0.0'
 
