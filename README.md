@@ -1,5 +1,20 @@
 # broadcast package
 
-A short description of your package.
+[View the changelog](https://github.com/eqot/atom-broadcast/blob/master/CHANGELOG.md)
 
-![A screenshot of your spankin' package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+This package allows you to start a built-in server to broadcast contents in Atom to browsers.
+
+![atom-broadcast](https://dl.dropboxusercontent.com/u/972960/Documents/atom/atom-broadcast/atom-broadcast.gif)
+
+
+## Installation
+
+You can install this package using the Preferences pane.
+
+
+## Features
+
+* Start (```ctrl-alt-b```) and stop (```ctrl-alt-shift-b```) a built-in server to broadcast contents in Atom to browsers
+* Live reload when you update the contents
+* Host name and/or port number can be specified in Settings instead of default ones (```localhost:8000```)
+* Emoji images can be downloaded from [Emoji Cheat Sheet](http://www.emoji-cheat-sheet.com/)
