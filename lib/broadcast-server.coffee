@@ -1,7 +1,8 @@
 path = require 'path'
 fs = require 'fs'
-nodeStatic = require 'node-static'
 Shell = require 'shell'
+socketIo = require 'socket.io'
+nodeStatic = require 'node-static'
 
 module.exports =
 class BroadcastServer
@@ -19,8 +20,11 @@ class BroadcastServer
 
     @setupEditor()
 
-    content = @getEditorContent()
-    url = @startServer()
+    hostname = atom.config.get('broadcast.hostname') or 'localhost'
+    port = atom.config.get('broadcast.port') or 8000
+    url = "http://#{hostname}:#{port}"
+
+    @startServer hostname, port
     @startSocketIOServer()
 
     if !isRestart and atom.config.get 'broadcast.automaticallyOpenInBrowser'
@@ -32,14 +36,9 @@ class BroadcastServer
     @editor = atom.workspace.activePaneItem
 
     @editor.on 'markdown-preview:markdown-changed', =>
-      # console.log 'Updated!'
       @updateContent()
 
-  startServer: ->
-    hostname = atom.config.get('broadcast.hostname') or 'localhost'
-    port = atom.config.get('broadcast.port') or 8000
-    url = "http://#{hostname}:#{port}"
-
+  startServer: (hostname, port) ->
     filePath = path.join __dirname, '..'
     template = fs.readFileSync path.join(filePath, 'template.html'), {encoding: 'utf8'}
 
@@ -59,20 +58,17 @@ class BroadcastServer
     @server.addListener 'connection', (socket) =>
       @sockets.push socket
 
-    return url
-
   startSocketIOServer: ->
-    if !@server?
-      return
+    return unless @server?
 
-    io = require('socket.io') @server
+    io = socketIo @server
 
     io.on 'connection', (socket) =>
       @ioSocket = socket
       @updateContent()
 
   stop: ->
-    if @server is null
+    if !@server?
       console.error 'Broadcast has not started'
       return
 
@@ -80,7 +76,7 @@ class BroadcastServer
       for socket in @sockets
         socket.destroy()
 
-    @server?.close()
+    @server.close()
     @server = null
 
     console.log 'Broadcast stopped.'
@@ -88,10 +84,10 @@ class BroadcastServer
   updateContent: ->
     return unless @ioSocket?
 
-    content = @getEditorContent()
+    content = @getContent()
     @ioSocket.emit 'update', content
 
-  getEditorContent: ->
+  getContent: ->
     if @editor[0]?
       content = @editor[0].outerHTML
       if atom.config.get 'broadcast.getEmojisFromCheatSheetSite'
