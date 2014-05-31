@@ -12,7 +12,6 @@ class BroadcastServer
   server: null
   sockets: []
   io: null
-  ioSocket: null
 
   start: ->
     isRestart = @server?
@@ -62,8 +61,7 @@ class BroadcastServer
     @io = socketIo @server
 
     @io.on 'connection', (socket) =>
-      @ioSocket = socket
-      @updateContent()
+      @updateContent socket
 
   stop: ->
     if !@server?
@@ -88,11 +86,13 @@ class BroadcastServer
 
     @io = null
 
-  updateContent: ->
-    return unless @ioSocket?
-
+  updateContent: (socket) ->
     content = @getContent()
-    @ioSocket.emit 'update', content
+
+    if socket?
+      socket.emit 'update', content
+    else
+      @io.emit 'update', content
 
   getContent: ->
     if @editor[0]?
