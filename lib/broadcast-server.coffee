@@ -11,6 +11,7 @@ class BroadcastServer
   editor: null
   server: null
   sockets: []
+  io: null
   ioSocket: null
 
   start: ->
@@ -58,9 +59,9 @@ class BroadcastServer
   startSocketIOServer: ->
     return unless @server?
 
-    io = socketIo @server
+    @io = socketIo @server
 
-    io.on 'connection', (socket) =>
+    @io.on 'connection', (socket) =>
       @ioSocket = socket
       @updateContent()
 
@@ -69,6 +70,10 @@ class BroadcastServer
       console.error 'Broadcast has not started'
       return
 
+    @stopSocketIOServer()
+    @stopServer()
+
+  stopServer: ->
     if @sockets.length > 0
       for socket in @sockets
         socket.destroy()
@@ -77,6 +82,11 @@ class BroadcastServer
     @server = null
 
     console.log 'Broadcast stopped.'
+
+  stopSocketIOServer: ->
+    return unless @io?
+
+    @io = null
 
   updateContent: ->
     return unless @ioSocket?
