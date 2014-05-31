@@ -7,6 +7,7 @@ module.exports =
 class BroadcastServer
   urlToCheatSheetSite: 'https://raw.githubusercontent.com/arvida/emoji-cheat-sheet.com/master/public/graphics/emojis'
 
+  editor: null
   server: null
   sockets: []
   ioSocket: null
@@ -16,8 +17,10 @@ class BroadcastServer
     if isRestart
       @stop()
 
-    content = @getContent()
-    url = @startServer content
+    @setupEditor()
+
+    content = @getEditorContent()
+    url = @startServer()
     @startSocketIOServer()
 
     if !isRestart and atom.config.get 'broadcast.automaticallyOpenInBrowser'
@@ -25,31 +28,21 @@ class BroadcastServer
 
     console.log "Broadcast started at #{url}"
 
-  getContent: ->
-    editor = atom.workspace.activePaneItem
-    if editor[0]?
-      content = editor[0].outerHTML
-      if atom.config.get 'broadcast.getEmojisFromCheatSheetSite'
-        content = content.replace /[\w-\.\/]+pngs/g, @urlToCheatSheetSite
-      else
-        content = content.replace /[\w-\.\/]+node_modules\/roaster/g, ''
-    else
-      content = '<pre>' + editor.getText?() + '</pre>'
+  setupEditor: ->
+    @editor = atom.workspace.activePaneItem
 
-    editor.on 'markdown-preview:markdown-changed', =>
+    @editor.on 'markdown-preview:markdown-changed', =>
       # console.log 'Updated!'
       @updateContent()
 
-    filePath = path.join __dirname, '..'
-    template = fs.readFileSync path.join(filePath, 'template.html'), {encoding: 'utf8'}
-    content = template.replace '{CONTENT}', content
-
-  startServer: (content) ->
+  startServer: ->
     hostname = atom.config.get('broadcast.hostname') or 'localhost'
     port = atom.config.get('broadcast.port') or 8000
     url = "http://#{hostname}:#{port}"
 
     filePath = path.join __dirname, '..'
+    template = fs.readFileSync path.join(filePath, 'template.html'), {encoding: 'utf8'}
+
     fileServer = new nodeStatic.Server filePath
 
     http = require 'http'
@@ -59,7 +52,7 @@ class BroadcastServer
         fileServer.serve req, res, (err) =>
           if err?
             res.writeHead 200, {'Content-Type': 'text/html'}
-            res.end content
+            res.end template
       .resume()
     .listen port, hostname
 
@@ -76,6 +69,7 @@ class BroadcastServer
 
     io.on 'connection', (socket) =>
       @ioSocket = socket
+      @updateContent()
 
   stop: ->
     if @server is null
@@ -92,7 +86,22 @@ class BroadcastServer
     console.log 'Broadcast stopped.'
 
   updateContent: ->
-    @ioSocket?.emit 'update', null
+    return unless @ioSocket?
+
+    content = @getEditorContent()
+    @ioSocket.emit 'update', content
+
+  getEditorContent: ->
+    if @editor[0]?
+      content = @editor[0].outerHTML
+      if atom.config.get 'broadcast.getEmojisFromCheatSheetSite'
+        content = content.replace /[\w-\.\/]+pngs/g, @urlToCheatSheetSite
+      else
+        content = content.replace /[\w-\.\/]+node_modules\/roaster/g, ''
+    else
+      content = '<pre>' + @editor.getText?() + '</pre>'
+
+    return content
 
   openUrlInBrowser: (url) ->
     Shell.openExternal url
