@@ -28,7 +28,7 @@ class BroadcastServer
     @startSocketIOServer()
 
     if !isRestart and atom.config.get 'broadcast.automaticallyOpenInBrowser'
-      @openUrlInBrowser url + '/index.html'
+      @openUrlInBrowser url
 
     console.log "Broadcast started at #{url}"
 
