@@ -42,7 +42,8 @@ class BroadcastServer
     filePath = path.join __dirname, '../public'
     fileServer = new nodeStatic.Server filePath
 
-    moduleServer = new nodeStatic.Server '../node_modules/'
+    modulePath = path.join __dirname, '../node_modules/'
+    moduleServer = new nodeStatic.Server modulePath
 
     @server = http.createServer (req, res) =>
       req.addListener 'end', =>
