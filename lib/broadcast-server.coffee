@@ -1,6 +1,6 @@
 path = require 'path'
-fs = require 'fs'
 Shell = require 'shell'
+http = require 'http'
 socketIo = require 'socket.io'
 nodeStatic = require 'node-static'
 
@@ -28,7 +28,7 @@ class BroadcastServer
     @startSocketIOServer()
 
     if !isRestart and atom.config.get 'broadcast.automaticallyOpenInBrowser'
-      @openUrlInBrowser url
+      @openUrlInBrowser url + '/index.html'
 
     console.log "Broadcast started at #{url}"
 
@@ -39,19 +39,16 @@ class BroadcastServer
       @updateContent()
 
   startServer: (hostname, port) ->
-    filePath = path.join __dirname, '..'
-    template = fs.readFileSync path.join(filePath, 'template.html'), {encoding: 'utf8'}
-
+    filePath = path.join __dirname, '../public'
     fileServer = new nodeStatic.Server filePath
 
-    http = require 'http'
     @server = http.createServer (req, res) =>
       req.addListener 'end', =>
         req.url = decodeURIComponent(req.url)
         fileServer.serve req, res, (err) =>
           if err?
-            res.writeHead 200, {'Content-Type': 'text/html'}
-            res.end template
+            console.log req.url
+            console.log err
       .resume()
     .listen port, hostname
 
