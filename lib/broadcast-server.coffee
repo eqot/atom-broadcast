@@ -100,7 +100,7 @@ class BroadcastServer
       if atom.config.get 'broadcast.getEmojisFromCheatSheetSite'
         content = content.replace /[\w-\.\/]+pngs/g, @urlToCheatSheetSite
       else
-        content = content.replace /[\w-\.\/]+node_modules\/roaster/g, ''
+        content = content.replace /[\w-\.\/]+node_modules\/roaster\/node_modules/g, ''
     else
       content = '<pre>' + @editor.getText?() + '</pre>'
 
