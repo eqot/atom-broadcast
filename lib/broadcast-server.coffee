@@ -51,7 +51,7 @@ class BroadcastServer
             console.log req.url
             console.log err
       .resume()
-    .listen port, hostname
+    .listen port, '0.0.0.0'
 
     @server.addListener 'connection', (socket) =>
       @sockets.push socket
