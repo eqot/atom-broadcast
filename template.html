@@ -10,4 +10,13 @@
     {CONTENT}
   </body>
 
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io('http://localhost');
+    socket.on('update', function (data) {
+      console.log(data);
+      document.body.innerHTML = data;
+    });
+  </script>
+
 </html>

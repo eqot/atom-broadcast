@@ -7,6 +7,15 @@ module.exports =
     getEmojisFromCheatSheetSite: false
     automaticallyOpenInBrowser: true
 
+  server: null
+
   activate: ->
-    atom.workspaceView.command 'broadcast:start', => BroadcastServer.start()
-    atom.workspaceView.command 'broadcast:stop', => BroadcastServer.stop()
+    atom.workspaceView.command 'broadcast:start', => @start()
+    atom.workspaceView.command 'broadcast:stop', => @stop()
+
+  start: ->
+    @server = new BroadcastServer() unless @server?
+    @server.start()
+
+  stop: ->
+    @server?.stop()
