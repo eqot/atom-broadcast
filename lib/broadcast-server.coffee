@@ -70,7 +70,7 @@ class BroadcastServer
 
   stop: ->
     if !@server?
-      console.error 'Broadcast has not started'
+      console.log 'Broadcast has not started'
       return
 
     @stopSocketIOServer()
