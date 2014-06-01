@@ -1,30 +1,40 @@
 {WorkspaceView} = require 'atom'
-Broadcast = require '../lib/broadcast'
 
-# Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
-#
-# To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
-# or `fdescribe`). Remove the `f` to unfocus the block.
+http = require 'http'
+Shell = require 'shell'
 
 describe "Broadcast", ->
   activationPromise = null
 
   beforeEach ->
+    atom.config.set 'broadcast.automaticallyOpenInBrowser', false
+
     atom.workspaceView = new WorkspaceView()
+    atom.workspaceView.openSync 'sample.md'
+    atom.workspaceView.simulateDomAttachment()
+
     activationPromise = atom.packages.activatePackage('broadcast')
 
-  describe "when the broadcast:toggle event is triggered", ->
-    it "attaches and then detaches the view", ->
-      expect(atom.workspaceView.find('.broadcast')).not.toExist()
+  describe "when the broadcast:start event is triggered", ->
+    it "start a built-in server at right hostname and port", ->
+      atom.config.set 'broadcast.automaticallyOpenInBrowser', true
+      atom.config.set 'broadcast.hostname', 'dummy'
+      atom.config.set 'broadcast.port', '1234'
 
-      # This is an activation event, triggering it will cause the package to be
-      # activated.
-      atom.workspaceView.trigger 'broadcast:toggle'
+      server = new http.Server()
+      spyOn(http, 'createServer').andReturn server
+      spyOn server, 'close'
+      spyOn Shell, 'openExternal'
+
+      atom.workspaceView.trigger 'broadcast:start'
 
       waitsForPromise ->
         activationPromise
 
       runs ->
-        expect(atom.workspaceView.find('.broadcast')).toExist()
-        atom.workspaceView.trigger 'broadcast:toggle'
-        expect(atom.workspaceView.find('.broadcast')).not.toExist()
+        expect(http.createServer).toHaveBeenCalled()
+        expect(Shell.openExternal).toHaveBeenCalledWith 'http://dummy:1234'
+
+        atom.workspaceView.trigger 'broadcast:stop'
+
+        expect(server.close).toHaveBeenCalled()
