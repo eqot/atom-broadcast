@@ -1,4 +1,4 @@
-# broadcast package
+# broadcast package [![Build Status](https://travis-ci.org/eqot/atom-broadcast.svg?branch=master)](https://travis-ci.org/eqot/atom-broadcast)
 
 [View the changelog](https://github.com/eqot/atom-broadcast/blob/master/CHANGELOG.md)
 
