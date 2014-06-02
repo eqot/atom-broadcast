@@ -45,6 +45,8 @@ class BroadcastServer
     modulePath = path.join __dirname, '../node_modules/'
     moduleServer = new nodeStatic.Server modulePath
 
+    ip = if atom.config.get 'broadcast.broadcastToOthers' then '0.0.0.0' else '127.0.0.1'
+
     @server = http.createServer (req, res) =>
       req.addListener 'end', =>
         req.url = decodeURIComponent(req.url)
@@ -55,7 +57,7 @@ class BroadcastServer
                 console.log req.url
                 console.log err2
       .resume()
-    .listen port, '0.0.0.0'
+    .listen port, ip
 
     @server.addListener 'connection', (socket) =>
       @sockets.push socket
