@@ -1,7 +1,7 @@
 {
   "name": "broadcast",
   "main": "./lib/broadcast",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Broadcast contents in Atom to browsers",
   "activationEvents": [
     "broadcast:start",
