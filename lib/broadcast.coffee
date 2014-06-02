@@ -6,6 +6,7 @@ module.exports =
     port: 8000
     getEmojisFromCheatSheetSite: false
     automaticallyOpenInBrowser: true
+    broadcastToOthers: false
 
   server: null
 
