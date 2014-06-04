@@ -1,3 +1,9 @@
+0.2.1 (June 5 2014)
+===================
+
+* Fix an issue that non-markdown preview content is not updated
+* Fix an issue that '<' and '>' are not shown correctly in non-markdown preview content
+
 0.2.0 (June 2 2014)
 ===================
 

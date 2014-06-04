@@ -4,11 +4,13 @@ http = require 'http'
 socketIo = require 'socket.io'
 nodeStatic = require 'node-static'
 
+BroadcastTarget = require './broadcast-target.coffee'
+
 module.exports =
 class BroadcastServer
   urlToCheatSheetSite: 'https://raw.githubusercontent.com/arvida/emoji-cheat-sheet.com/master/public/graphics/emojis'
 
-  editor: null
+  target: null
   server: null
   sockets: []
   io: null
@@ -18,7 +20,8 @@ class BroadcastServer
     if isRestart
       @stop()
 
-    @setupEditor()
+    @target = new BroadcastTarget()
+    @target.setListener @onUpdateTarget
 
     hostname = atom.config.get('broadcast.hostname') or 'localhost'
     port = atom.config.get('broadcast.port') or 8000
@@ -31,12 +34,6 @@ class BroadcastServer
       @openUrlInBrowser url
 
     console.log "Broadcast started at #{url}"
-
-  setupEditor: ->
-    @editor = atom.workspace.activePaneItem
-
-    @editor.on 'markdown-preview:markdown-changed', =>
-      @updateContent()
 
   startServer: (hostname, port) ->
     filePath = path.join __dirname, '../public'
@@ -68,7 +65,7 @@ class BroadcastServer
     @io = socketIo @server
 
     @io.on 'connection', (socket) =>
-      @updateContent socket
+      @onUpdateTarget socket
 
   stop: ->
     if !@server?
@@ -93,25 +90,13 @@ class BroadcastServer
 
     @io = null
 
-  updateContent: (socket) ->
-    content = @getContent()
+  onUpdateTarget: (socket) =>
+    content = @target.getContent()
 
     if socket?
       socket.emit 'update', content
     else
       @io.emit 'update', content
-
-  getContent: ->
-    if @editor[0]?
-      content = @editor[0].outerHTML
-      if atom.config.get 'broadcast.getEmojisFromCheatSheetSite'
-        content = content.replace /[\w-\.\/]+pngs/g, @urlToCheatSheetSite
-      else
-        content = content.replace /[\w-\.\/]+node_modules\/roaster\/node_modules/g, ''
-    else
-      content = '<pre>' + @editor.getText?() + '</pre>'
-
-    return content
 
   openUrlInBrowser: (url) ->
     Shell.openExternal url
