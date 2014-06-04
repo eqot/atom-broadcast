@@ -9,8 +9,12 @@ class BroadcastTarget
 
     @isMarkdownPreview = @editor[0]?
 
-    @editor.on 'markdown-preview:markdown-changed', =>
-      @listener?()
+    if @isMarkdownPreview
+      @editor.on 'markdown-preview:markdown-changed', =>
+        @listener?()
+    else
+      @editor.getBuffer().on 'contents-modified', =>
+        @listener?()
 
   setListener: (listener) ->
     @listener = listener
