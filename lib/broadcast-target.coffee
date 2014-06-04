@@ -27,4 +27,7 @@ class BroadcastTarget
 
   getOtherContent: ->
     content = @editor.getText?()
+    .replace /</g, '&lt;'
+    .replace />/g, '&gt;'
+
     return '<pre>' + content + '</pre>'
