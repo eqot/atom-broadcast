@@ -1,26 +1,56 @@
 module.exports =
 class BroadcastTarget
+  ContentType =
+    Unknown: -1
+    MarkdownPreview: 0
+    HighlightedCode: 1
+
   editor: null
   listener: null
-  isMarkdownPreview: false
+  contentType: null
+  highlighter: null
 
   constructor: ->
     @editor = atom.workspace.activePaneItem
 
-    @isMarkdownPreview = @editor[0]?
+    @contentType = @getContentType()
 
-    if @isMarkdownPreview
-      @editor.on 'markdown-preview:markdown-changed', =>
-        @listener?()
-    else
-      @editor.getBuffer().on 'contents-modified', =>
-        @listener?()
+    switch @contentType
+      when ContentType.MarkdownPreview
+        @editor.on 'markdown-preview:markdown-changed', =>
+          @listener?()
+
+      when ContentType.HighlightedCode
+        @editor.getBuffer().on 'contents-modified', =>
+          @listener?()
+
+        Highlights = require 'highlights'
+        @highlighter = new Highlights()
+
+  getContentType: ->
+    if @editor[0]?
+      return ContentType.MarkdownPreview
+    else if atom.config.get('broadcast.codeHighlight')
+      return ContentType.HighlightedCode
+
+    return ContentType.Unknown
 
   setListener: (listener) ->
     @listener = listener
 
+  getTitle: ->
+    @editor.getTitle()
+
   getContent: ->
-    return if @isMarkdownPreview then @getMarkdownPreviewContent() else @getOtherContent()
+    switch @contentType
+      when ContentType.MarkdownPreview
+        @getMarkdownPreviewContent()
+
+      when ContentType.HighlightedCode
+        @getHighlightedCodeContent()
+
+      else
+        @getPlainTextContent()
 
   getMarkdownPreviewContent: ->
     content = @editor[0].outerHTML
@@ -29,7 +59,11 @@ class BroadcastTarget
     else
       content = content.replace /[\w-\.\/]+node_modules\/roaster\/node_modules/g, ''
 
-  getOtherContent: ->
+  getHighlightedCodeContent: ->
+    @highlighter.highlightSync
+      filePath: @editor.getPath()
+
+  getPlainTextContent: ->
     content = @editor.getText?()
     .replace /</g, '&lt;'
     .replace />/g, '&gt;'
