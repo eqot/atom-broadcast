@@ -2,7 +2,7 @@
 
 This is a sample content for broadcasting markdown preview content to browsers.
 
-```
+```js
     var http = require('http');
     http.createServer(function (req, res) {
       res.writeHead(200, {'Content-Type': 'text/plain'});
