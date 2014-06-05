@@ -7,6 +7,7 @@ module.exports =
     getEmojisFromCheatSheetSite: false
     automaticallyOpenInBrowser: true
     broadcastToOthers: false
+    codeHighlight: true
 
   server: null
 
