@@ -91,12 +91,14 @@ class BroadcastServer
     @io = null
 
   onUpdateTarget: (socket) =>
-    content = @target.getContent()
+    targetData =
+      title: @target.getTitle()
+      content: @target.getContent()
 
     if socket?
-      socket.emit 'update', content
+      socket.emit 'update', targetData
     else
-      @io.emit 'update', content
+      @io.emit 'update', targetData
 
   openUrlInBrowser: (url) ->
     Shell.openExternal url

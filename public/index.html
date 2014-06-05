@@ -1,7 +1,7 @@
 <!doctype html>
 
   <head>
-    <title>Markdown Preview</title>
+    <title>Broadcast from Atom</title>
 
     <link rel="stylesheet" href="stylesheets/markdown-preview.css">
   </head>
@@ -13,7 +13,8 @@
   <script>
     var socket = io('/');
     socket.on('update', function (data) {
-      document.body.innerHTML = data;
+      document.title = data.title;
+      document.body.innerHTML = data.content;
     });
   </script>
 

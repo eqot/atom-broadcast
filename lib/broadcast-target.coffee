@@ -1,5 +1,3 @@
-path = require 'path'
-
 module.exports =
 class BroadcastTarget
   ContentType =
@@ -39,6 +37,9 @@ class BroadcastTarget
 
   setListener: (listener) ->
     @listener = listener
+
+  getTitle: ->
+    @editor.getTitle()
 
   getContent: ->
     switch @contentType
