@@ -1,3 +1,9 @@
+0.3.0 (June 6 2014)
+===================
+
+* Broadcast title as well as content
+* Support code highlight and add its flag in settings
+
 0.2.1 (June 5 2014)
 ===================
 
