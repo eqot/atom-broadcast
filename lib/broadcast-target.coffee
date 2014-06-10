@@ -5,6 +5,8 @@ class BroadcastTarget
     MarkdownPreview: 0
     HighlightedCode: 1
 
+  urlToCheatSheetSite: 'https://raw.githubusercontent.com/arvida/emoji-cheat-sheet.com/master/public/graphics/emojis'
+
   editor: null
   listener: null
   contentType: null
