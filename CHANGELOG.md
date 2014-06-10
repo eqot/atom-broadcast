@@ -1,3 +1,8 @@
+0.3.1 (June 11 2014)
+===================
+
+* Fix broken emoji issue when broadcasting markdown preview with emoji from cheat sheet
+
 0.3.0 (June 6 2014)
 ===================
 
