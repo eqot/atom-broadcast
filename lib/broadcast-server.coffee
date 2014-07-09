@@ -88,6 +88,8 @@ class BroadcastServer
   stopSocketIOServer: ->
     return unless @io?
 
+    @target.removeListener()
+
     @io = null
 
   onUpdateTarget: (socket) =>

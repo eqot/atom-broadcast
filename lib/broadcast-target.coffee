@@ -40,6 +40,9 @@ class BroadcastTarget
   setListener: (listener) ->
     @listener = listener
 
+  removeListener: ->
+    @listener = null
+
   getTitle: ->
     @editor.getTitle()
 
