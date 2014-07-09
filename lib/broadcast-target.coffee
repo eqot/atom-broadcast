@@ -62,8 +62,11 @@ class BroadcastTarget
       content = content.replace /[\w-\.\/]+node_modules\/roaster\/node_modules/g, ''
 
   getHighlightedCodeContent: ->
-    @highlighter.highlightSync
-      filePath: @editor.getPath()
+    if @editor.getPath()?
+      @highlighter.highlightSync
+        filePath: @editor.getPath()
+    else
+      @getPlainTextContent()
 
   getPlainTextContent: ->
     content = @editor.getText?()
