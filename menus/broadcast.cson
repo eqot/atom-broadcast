@@ -9,7 +9,8 @@
     'submenu': [
       'label': 'broadcast'
       'submenu': [
-        { 'label': 'Toggle', 'command': 'broadcast:toggle' }
+        { 'label': 'Start', 'command': 'broadcast:start' },
+        { 'label': 'Stop', 'command': 'broadcast:stop' }
       ]
     ]
   }
