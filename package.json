@@ -13,11 +13,11 @@
   },
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">=0.121.0"
   },
   "dependencies": {
     "emoji-images": "^0.1.1",
-    "highlights": "^0.11.0",
+    "highlights": "^0.13.0",
     "node-static": "^0.7.3",
     "socket.io": "^1.0.2"
   },
