@@ -1,3 +1,10 @@
+0.3.7 (Jan 29 2015)
+===================
+
+* Fix issue causing no broadcasted contents
+* Fix warnings to use deprecated call and selector
+* Update packages
+
 0.3.5 (Nov 19 2014)
 ===================
 
