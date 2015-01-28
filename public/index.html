@@ -11,7 +11,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    var socket = io('/');
+    var socket = io();
     socket.on('update', function (data) {
       document.title = data.title;
       document.body.innerHTML = data.content;
