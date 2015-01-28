@@ -12,8 +12,12 @@ module.exports =
   server: null
 
   activate: ->
-    atom.workspaceView.command 'broadcast:start', => @start()
-    atom.workspaceView.command 'broadcast:stop', => @stop()
+    atom.commands.add 'atom-workspace',
+      'broadcast:start': =>
+        @start()
+    atom.commands.add 'atom-workspace',
+      'broadcast:stop': =>
+        @stop()
 
   start: ->
     @server = new BroadcastServer() unless @server?
