@@ -23,7 +23,7 @@ class BroadcastTarget
           @listener?()
 
       when ContentType.HighlightedCode
-        @editor.getBuffer().on 'contents-modified', =>
+        @editor.getBuffer().onDidStopChanging? =>
           @listener?()
 
         Highlights = require 'highlights'
