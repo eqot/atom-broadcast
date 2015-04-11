@@ -75,6 +75,10 @@ class BroadcastServer
     @stopSocketIOServer()
     @stopServer()
 
+    @target.destroy()
+
+    console.log 'Broadcast stopped.'
+
   stopServer: ->
     if @sockets.length > 0
       for socket in @sockets
@@ -83,13 +87,8 @@ class BroadcastServer
     @server.close()
     @server = null
 
-    console.log 'Broadcast stopped.'
-
   stopSocketIOServer: ->
     return unless @io?
-
-    @target.removeListener()
-
     @io = null
 
   onUpdateTarget: (socket) =>

@@ -11,6 +11,7 @@ class BroadcastTarget
   listener: null
   contentType: null
   highlighter: null
+  disposable: null
 
   constructor: ->
     @editor = atom.workspace.getActivePaneItem()
@@ -19,15 +20,20 @@ class BroadcastTarget
 
     switch @contentType
       when ContentType.MarkdownPreview
-        @editor.onDidChangeMarkdown? =>
+        @disposable = @editor.onDidChangeMarkdown? =>
           @listener?()
 
       when ContentType.HighlightedCode
-        @editor.getBuffer().onDidStopChanging? =>
+        @disposable = @editor.getBuffer().onDidStopChanging? =>
           @listener?()
 
         Highlights = require 'highlights'
         @highlighter = new Highlights()
+
+  destroy: ->
+    @removeListener()
+
+    @disposable?.dispose()
 
   getContentType: ->
     if @editor[0]?
