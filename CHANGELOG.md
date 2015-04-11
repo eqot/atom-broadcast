@@ -1,3 +1,8 @@
+0.3.10 (Apr 11 2015)
+====================
+
+* Fix warnings to use deprecated call and directory
+
 0.3.9 (Feb 24 2015)
 ===================
 
