@@ -13,13 +13,13 @@ class BroadcastTarget
   highlighter: null
 
   constructor: ->
-    @editor = atom.workspace.activePaneItem
+    @editor = atom.workspace.getActivePaneItem()
 
     @contentType = @getContentType()
 
     switch @contentType
       when ContentType.MarkdownPreview
-        @editor.on 'markdown-preview:markdown-changed', =>
+        @editor.onDidChangeMarkdown =>
           @listener?()
 
       when ContentType.HighlightedCode
