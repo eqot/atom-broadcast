@@ -19,7 +19,7 @@ class BroadcastTarget
 
     switch @contentType
       when ContentType.MarkdownPreview
-        @editor.onDidChangeMarkdown =>
+        @editor.onDidChangeMarkdown? =>
           @listener?()
 
       when ContentType.HighlightedCode
