@@ -1,7 +1,9 @@
 # See https://atom.io/docs/latest/creating-a-package#menus for more details
 'context-menu':
-  '.overlayer':
-      'Enable broadcast': 'broadcast:toggle'
+  'atom-workspace': [{
+    label: 'Enable broadcast',
+    command: 'broadcast:start'
+  }]
 
 'menu': [
   {

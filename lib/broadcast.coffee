@@ -1,13 +1,25 @@
 BroadcastServer = require './broadcast-server.coffee'
 
 module.exports =
-  configDefaults:
-    hostname: 'localhost'
-    port: 8000
-    getEmojisFromCheatSheetSite: false
-    automaticallyOpenInBrowser: true
-    broadcastToOthers: false
-    codeHighlight: true
+  config:
+    hostname:
+      type: 'string'
+      default: 'localhost'
+    port:
+      type: 'integer'
+      default: 8000
+    getEmojisFromCheatSheetSite:
+      type: 'boolean'
+      default: false
+    automaticallyOpenInBrowser:
+      type: 'boolean'
+      default: true
+    broadcastToOthers:
+      type: 'boolean'
+      default: false
+    codeHighlight:
+      type: 'boolean'
+      default: true
 
   server: null
 
