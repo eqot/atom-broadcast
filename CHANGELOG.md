@@ -1,3 +1,8 @@
+0.3.13 (May 6 2015)
+====================
+
+* Fix warnings to use deprecated configs
+
 0.3.10 (Apr 11 2015)
 ====================
 
