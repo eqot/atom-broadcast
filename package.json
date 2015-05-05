@@ -1,10 +1,13 @@
 {
   "name": "broadcast",
   "main": "./lib/broadcast",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "description": "Broadcast contents in Atom to browsers",
   "activationCommands": {
-    "atom-workspace": ["broadcast:start", "broadcast:stop"]
+    "atom-workspace": [
+      "broadcast:start",
+      "broadcast:stop"
+    ]
   },
   "repository": {
     "type": "git",
