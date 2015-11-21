@@ -27,7 +27,6 @@ module.exports =
     atom.commands.add 'atom-workspace',
       'broadcast:start': =>
         @start()
-    atom.commands.add 'atom-workspace',
       'broadcast:stop': =>
         @stop()
 
