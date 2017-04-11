@@ -4,7 +4,7 @@
 
 This package allows you to launch a built-in server to broadcast contents in an Atom's focused buffer to browsers.
 
-![atom-broadcast](https://dl.dropboxusercontent.com/u/972960/Documents/atom/atom-broadcast/atom-broadcast.gif)
+![atom-broadcast](https://github.com/eqot/atom-broadcast/blob/master/doc/images/atom-broadcast.gif?raw=true)
 
 Here are benefits.
 
