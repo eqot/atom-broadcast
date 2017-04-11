@@ -1,7 +1,7 @@
 {
   "name": "broadcast",
   "main": "./lib/broadcast",
-  "version": "0.3.14",
+  "version": "0.4.0",
   "description": "Broadcast contents in Atom to browsers",
   "repository": {
     "type": "git",
