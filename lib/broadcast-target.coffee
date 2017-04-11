@@ -36,7 +36,7 @@ class BroadcastTarget
     @disposable?.dispose()
 
   getContentType: ->
-    if @editor[0]?
+    if @editor.element.classList.contains('markdown-preview')
       return ContentType.MarkdownPreview
     else if atom.config.get('broadcast.codeHighlight')
       return ContentType.HighlightedCode
@@ -64,7 +64,7 @@ class BroadcastTarget
         @getPlainTextContent()
 
   getMarkdownPreviewContent: ->
-    content = @editor[0].outerHTML
+    content = @editor.element.outerHTML
     if atom.config.get 'broadcast.getEmojisFromCheatSheetSite'
       content = content.replace /[\w-\.\/]+pngs/g, @urlToCheatSheetSite
     else

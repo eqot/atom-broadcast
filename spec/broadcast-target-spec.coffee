@@ -43,7 +43,7 @@ describe "BroadcastTarget", ->
 
       runs ->
         target = new BroadcastTarget()
-        target.editor[0] = {outerHTML: target.editor.getText()}
+        target.editor = { element: { outerHTML: target.editor.getText() } }
 
     it "has the right content type", ->
       expect(target.getContentType()).toBe(0)
